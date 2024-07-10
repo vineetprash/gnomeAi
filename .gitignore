@@ -1,0 +1,7 @@
+backend
+history
+
+node_modules
+
+#env
+.env
