@@ -30,7 +30,6 @@ await (async function () {
     try {
         const response = await axios.request(config);
         parts = response.data;
-        console.log(response.data, typeof response.data);
     } catch (err) {
         console.log(err);
     }
