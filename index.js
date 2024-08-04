@@ -47,7 +47,7 @@ const generationConfig = {
     responseMimeType: "text/plain",
 };
 
-export default async function gnomeAi(prompt) {
+async function gnomeAi(prompt) {
     const part = { text: prompt };
     parts = [...parts, part];
     const result = await model.generateContent({
@@ -56,37 +56,13 @@ export default async function gnomeAi(prompt) {
     });
     return result.response.text();
 }
-async function runConsole() {
+
+while (true) {
     let input = prompt("Enter your prompt: ");
     if (input === "exit" || input === "x") {
-        return;
+        break;
     }
-    try {
-        let response = await gnomeAi(input || "i dont have anything to speak");
-        parts = [...parts, { text: `output: ${response}` }];
-        console.log("\n", response);
-    } catch (err) {
-        console.log(
-            "\n",
-            "I believe you said something inappropriate, if not please report the prompt."
-        );
-    }
-}
-
-async function sendQuery() {
-    let input = document.getElementById("prompt-input").value;
-    if (input === "exit" || input === "x") {
-        return;
-    }
-    try {
-        let response = await gnomeAi(input || "i dont have anything to speak");
-        parts = [...parts, { text: `output: ${response}` }];
-        let responseBox = document.getElementById("responseBox");
-        responseBox.innerText = response;
-    } catch (err) {
-        console.log(
-            "\n",
-            "I believe you said something inappropriate, if not please report the prompt."
-        );
-    }
+    let response = await gnomeAi(input || "i dont have anything to speak");
+    parts = [...parts, { text: `output: ${response}` }];
+    console.log("\n", response);
 }
